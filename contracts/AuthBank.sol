@@ -33,7 +33,7 @@ contract AuthBank {
         return _authCounters[user].current();
     }
 
-    function createAuth(address tokenAddress, uint256 tokenId) external {
+    function createAuth(address tokenAddress, uint256 tokenId, uint256 expiration) external {
         require(
             IERC721(tokenAddress).ownerOf(tokenId) == msg.sender,
             "AuthBank: Not owner of token"
@@ -44,7 +44,7 @@ contract AuthBank {
         Auth memory _newAuth = Auth({
             tokenAddress: tokenAddress,
             tokenId: tokenId,
-            expiration: currentTime() + 7 days,
+            expiration: expiration,
             isAuth: true
         });
 
